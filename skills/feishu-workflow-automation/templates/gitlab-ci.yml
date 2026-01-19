@@ -1,0 +1,81 @@
+stages:
+  - upload
+
+variables:
+  DOCS_DIR: "docs"
+  API_DIR: "api"
+
+upload_docs:
+  stage: upload
+  image: python:3.10
+  only:
+    - main
+    - master
+  changes:
+    - docs/**/*
+    - api/**/*.md
+    - README.md
+  before_script:
+    - pip install requests python-dotenv
+    # Or install feishu-doc-tools package
+    # - pip install feishu-doc-tools
+  script:
+    - echo "📤 Uploading documentation to Feishu..."
+    - |
+      python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
+        --source-dir "$DOCS_DIR" \
+        --recursive \
+        --parallel \
+        --workers 5 \
+        --folder-token "$FEISHU_FOLDER_TOKEN"
+  after_script:
+    - echo "✅ Documentation upload completed!"
+  environment:
+    name: production
+  tags:
+    - docker
+
+upload_api_docs:
+  stage: upload
+  image: python:3.10
+  only:
+    - main
+    - master
+  changes:
+    - api/**/*
+  before_script:
+    - pip install requests python-dotenv
+  script:
+    - echo "📤 Uploading API documentation to Feishu..."
+    - |
+      python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
+        --source-dir "$API_DIR" \
+        --recursive \
+        --parallel \
+        --workers 5 \
+        --folder-token "$FEISHU_API_FOLDER_TOKEN"
+  environment:
+    name: production
+  tags:
+    - docker
+
+# Manual job for full upload
+manual_upload:
+  stage: upload
+  image: python:3.10
+  when: manual
+  before_script:
+    - pip install requests python-dotenv
+  script:
+    - echo "📤 Manual upload triggered..."
+    - |
+      python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
+        --source-dir . \
+        --recursive \
+        --parallel \
+        --workers 5 \
+        --folder-token "$FEISHU_FOLDER_TOKEN"
+  environment:
+    name: production
+  tags:
+    - docker

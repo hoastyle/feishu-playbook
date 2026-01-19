@@ -1,0 +1,77 @@
+name: Upload Docs to Feishu
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - 'docs/**'
+      - 'api/**/*.md'
+      - 'README.md'
+  pull_request:
+    branches: [main, master]
+    paths:
+      - 'docs/**'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  upload-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install requests python-dotenv
+          # Or install feishu-doc-tools package
+          # pip install feishu-doc-tools
+
+      - name: Upload documentation to Feishu
+        env:
+          FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
+          FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
+          FEISHU_FOLDER_TOKEN: ${{ secrets.FEISHU_FOLDER_TOKEN }}
+        run: |
+          python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
+            --source-dir docs \
+            --recursive \
+            --parallel \
+            --workers 5 \
+            --folder-token "$FEISHU_FOLDER_TOKEN"
+
+      - name: Upload API documentation
+        if: contains(github.event.head_commit.message, '[api]')
+        env:
+          FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
+          FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
+          FEISHU_API_FOLDER_TOKEN: ${{ secrets.FEISHU_API_FOLDER_TOKEN }}
+        run: |
+          python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
+            --source-dir api \
+            --recursive \
+            --parallel \
+            --folder-token "$FEISHU_API_FOLDER_TOKEN"
+
+      - name: Notify on success
+        if: success()
+        run: |
+          echo "✅ Documentation uploaded successfully to Feishu!"
+          echo "View at: https://your-workspace.feishu.cn/drive/folder/$FEISHU_FOLDER_TOKEN"
+
+      - name: Notify on failure
+        if: failure()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '❌ Documentation upload to Feishu failed. Please check the logs.'
+            })
