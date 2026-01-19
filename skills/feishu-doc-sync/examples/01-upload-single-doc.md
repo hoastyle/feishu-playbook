@@ -19,12 +19,12 @@ ls -lh README.md
 **Step 2: Get folder token** (if you don't have it)
 ```bash
 # List available folders
-python /path/to/feishu-doc-tools/scripts/get_root_info.py
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/get_root_info.py
 ```
 
 **Step 3: Upload the document**
 ```bash
-python /path/to/feishu-doc-tools/scripts/create_feishu_doc.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/create_feishu_doc.py \
   --title "API Documentation" \
   --file README.md \
   --folder-token "fldcnxxxxxxxxxxx"
@@ -33,7 +33,7 @@ python /path/to/feishu-doc-tools/scripts/create_feishu_doc.py \
 ## Command Executed
 
 ```bash
-python /home/user/feishu-doc-tools/scripts/create_feishu_doc.py \
+cd $(dirname /home/user/feishu-doc-tools/scripts/create_feishu_doc.py) && uv run python /home/user/feishu-doc-tools/scripts/create_feishu_doc.py \
   --title "API Documentation" \
   --file /home/user/project/README.md \
   --folder-token "fldcn1234567890abcdef"
@@ -93,13 +93,13 @@ echo $FEISHU_APP_ID
 echo $FEISHU_APP_SECRET
 
 # Re-authenticate if needed
-python /path/to/feishu-doc-tools/scripts/setup_user_auth.py
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/setup_user_auth.py
 ```
 
 **If file not found error**:
 ```bash
 # Use absolute path
-python create_feishu_doc.py \
+uv run python create_feishu_doc.py \
   --file /absolute/path/to/README.md \
   --title "API Documentation" \
   --folder-token "fldcn1234567890"

@@ -20,7 +20,7 @@ find docs -name "*.md" | head -20
 
 **Step 2: Batch upload with parallel processing**
 ```bash
-python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
   --source-dir docs \
   --recursive \
   --parallel \
@@ -31,7 +31,7 @@ python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
 ## Command Executed
 
 ```bash
-python /home/user/feishu-doc-tools/scripts/batch_create_docs.py \
+cd $(dirname /home/user/feishu-doc-tools/scripts/batch_create_docs.py) && uv run python /home/user/feishu-doc-tools/scripts/batch_create_docs.py \
   --source-dir /home/user/project/docs \
   --recursive \
   --parallel \
@@ -107,7 +107,7 @@ https://example.feishu.cn/drive/folder/fldcn1234567890
 **Organize uploaded documents**:
 ```bash
 # If you want to maintain folder structure
-python batch_create_docs.py \
+uv run python batch_create_docs.py \
   --source-dir docs \
   --maintain-structure \
   --parallel
@@ -118,7 +118,7 @@ python batch_create_docs.py \
 ### Custom folder structure
 ```bash
 # Upload with custom mapping
-python batch_create_docs.py \
+uv run python batch_create_docs.py \
   --source-dir docs \
   --folder-mapping "api:fldcn111,guides:fldcn222" \
   --parallel
@@ -127,7 +127,7 @@ python batch_create_docs.py \
 ### Dry run mode
 ```bash
 # Test before actual upload
-python batch_create_docs.py \
+uv run python batch_create_docs.py \
   --source-dir docs \
   --dry-run \
   --validate-only
@@ -136,7 +136,7 @@ python batch_create_docs.py \
 ### With error logging
 ```bash
 # Log errors to file
-python batch_create_docs.py \
+uv run python batch_create_docs.py \
   --source-dir docs \
   --parallel \
   --error-log upload_errors.log
@@ -150,7 +150,7 @@ python batch_create_docs.py \
 cat upload_errors.log
 
 # Retry failed uploads only
-python batch_create_docs.py \
+uv run python batch_create_docs.py \
   --retry-failed upload_errors.log \
   --parallel
 ```
@@ -158,7 +158,7 @@ python batch_create_docs.py \
 **If parallel upload is too aggressive**:
 ```bash
 # Reduce number of workers
-python batch_create_docs.py \
+uv run python batch_create_docs.py \
   --source-dir docs \
   --parallel \
   --workers 3  # Reduce from 5 to 3
@@ -167,7 +167,7 @@ python batch_create_docs.py \
 **If rate limit errors occur**:
 ```bash
 # Add delay between uploads
-python batch_create_docs.py \
+uv run python batch_create_docs.py \
   --source-dir docs \
   --parallel \
   --workers 3 \

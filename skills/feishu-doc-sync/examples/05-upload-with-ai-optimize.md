@@ -16,7 +16,7 @@ This is a two-step process:
 
 **Step 1: Upload the document**
 ```bash
-python /path/to/feishu-doc-tools/scripts/create_feishu_doc.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/create_feishu_doc.py \
   --title "Technical Specification" \
   --file technical-spec.md \
   --folder-token "fldcnxxxxxxxxxxx"
@@ -32,7 +32,7 @@ python /path/to/feishu-doc-tools/scripts/create_feishu_doc.py \
 
 ### Step 1: Upload
 ```bash
-python /home/user/feishu-doc-tools/scripts/create_feishu_doc.py \
+cd $(dirname /home/user/feishu-doc-tools/scripts/create_feishu_doc.py) && uv run python /home/user/feishu-doc-tools/scripts/create_feishu_doc.py \
   --title "Technical Specification v2.0" \
   --file /home/user/docs/technical-spec.md \
   --folder-token "fldcn1234567890abcdef"
@@ -149,7 +149,7 @@ FOLDER_TOKEN="$3"
 
 # Step 1: Upload
 echo "📤 Uploading document..."
-UPLOAD_RESULT=$(python /path/to/feishu-doc-tools/scripts/create_feishu_doc.py \
+UPLOAD_RESULT=$(cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/create_feishu_doc.py \
   --title "$DOC_TITLE" \
   --file "$DOC_FILE" \
   --folder-token "$FOLDER_TOKEN" \
@@ -252,7 +252,7 @@ for file in docs/*.md; do
   echo "Processing: $file"
 
   # Upload
-  DOC_ID=$(python create_feishu_doc.py \
+  DOC_ID=$(uv run python create_feishu_doc.py \
     --title "$(basename "$file" .md)" \
     --file "$file" \
     --folder-token "$FOLDER_TOKEN" \
@@ -281,7 +281,7 @@ done
 **If optimization fails**:
 ```bash
 # Check if document was uploaded
-python /path/to/feishu-doc-tools/scripts/get_doc_info.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/get_doc_info.py \
   --doc-id "doccnABCDEF1234567890"
 
 # Retry optimization only

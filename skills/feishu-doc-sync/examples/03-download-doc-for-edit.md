@@ -16,12 +16,12 @@ You can download by name (recommended) or by ID:
 
 ```bash
 # Option 1: Download by name (NEW in v0.2.1)
-python /path/to/feishu-doc-tools/scripts/download_doc.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/download_doc.py \
   --doc-name "Installation Guide" \
   --output installation-guide.md
 
 # Option 2: Download by ID (if you have it)
-python /path/to/feishu-doc-tools/scripts/download_doc.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/download_doc.py \
   --doc-id "doccnABCDEF1234567890" \
   --output installation-guide.md
 ```
@@ -29,7 +29,7 @@ python /path/to/feishu-doc-tools/scripts/download_doc.py \
 ## Command Executed
 
 ```bash
-python /home/user/feishu-doc-tools/scripts/download_doc.py \
+cd $(dirname /home/user/feishu-doc-tools/scripts/download_doc.py) && uv run python /home/user/feishu-doc-tools/scripts/download_doc.py \
   --doc-name "Installation Guide" \
   --output /home/user/projects/docs/installation-guide.md
 ```
@@ -107,7 +107,7 @@ vim installation-guide.md
 **Step 3: Upload changes back to Feishu**
 ```bash
 # After editing, upload the updated version
-python /path/to/feishu-doc-tools/scripts/create_feishu_doc.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/create_feishu_doc.py \
   --title "Installation Guide" \
   --file installation-guide.md \
   --folder-token "fldcn1234567890" \
@@ -119,7 +119,7 @@ python /path/to/feishu-doc-tools/scripts/create_feishu_doc.py \
 ### Download with images
 ```bash
 # Download document and all images
-python download_doc.py \
+uv run python download_doc.py \
   --doc-name "Installation Guide" \
   --output installation-guide.md \
   --download-images \
@@ -129,7 +129,7 @@ python download_doc.py \
 ### Download by path
 ```bash
 # Download using document path
-python download_doc.py \
+uv run python download_doc.py \
   --doc-path "/Team Docs/Guides/Installation Guide" \
   --output installation-guide.md
 ```
@@ -137,7 +137,7 @@ python download_doc.py \
 ### Multiple formats
 ```bash
 # Download and convert to different formats
-python download_doc.py \
+uv run python download_doc.py \
   --doc-name "Installation Guide" \
   --output installation-guide \
   --format markdown,html,pdf
@@ -149,7 +149,7 @@ python download_doc.py \
 
 ```bash
 # 1. Download from Feishu
-python download_doc.py \
+uv run python download_doc.py \
   --doc-name "Installation Guide" \
   --output guide.md
 
@@ -160,14 +160,14 @@ vim guide.md
 grip guide.md  # or use markdown preview tool
 
 # 4. Upload updated version
-python create_feishu_doc.py \
+uv run python create_feishu_doc.py \
   --title "Installation Guide" \
   --file guide.md \
   --folder-token "fldcn1234567890" \
   --overwrite
 
 # 5. Verify upload
-python download_doc.py \
+uv run python download_doc.py \
   --doc-name "Installation Guide" \
   --output guide-verify.md
 
@@ -180,10 +180,10 @@ diff guide.md guide-verify.md
 **If document not found by name**:
 ```bash
 # List all available documents
-python /path/to/feishu-doc-tools/scripts/get_root_info.py
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/get_root_info.py
 
 # Search with partial name
-python download_doc.py \
+uv run python download_doc.py \
   --doc-name-pattern "Installation" \
   --list-matches
 ```
@@ -191,11 +191,11 @@ python download_doc.py \
 **If download fails with permission error**:
 ```bash
 # Verify you have read access
-python /path/to/feishu-doc-tools/scripts/check_permissions.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/check_permissions.py \
   --doc-name "Installation Guide"
 
 # Try using document ID instead
-python download_doc.py \
+uv run python download_doc.py \
   --doc-id "doccnABCDEF1234567890" \
   --output guide.md
 ```
@@ -203,7 +203,7 @@ python download_doc.py \
 **If images are not downloaded**:
 ```bash
 # Download with explicit image handling
-python download_doc.py \
+uv run python download_doc.py \
   --doc-name "Installation Guide" \
   --output guide.md \
   --download-images \

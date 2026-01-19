@@ -73,32 +73,32 @@
 ✅ **Uploading large batches** (100+ documents)
 ```bash
 # Perfect use case
-python batch_create_docs.py --source-dir docs --parallel --workers 5
+uv run python batch_create_docs.py --source-dir docs --parallel --workers 5
 ```
 
 ✅ **Downloading documents** (NEW in v0.2.1)
 ```bash
 # Only feishu-doc-tools supports this
-python download_doc.py --doc-name "My Doc" --output mydoc.md
+uv run python download_doc.py --doc-name "My Doc" --output mydoc.md
 ```
 
 ✅ **Backing up Wiki spaces**
 ```bash
 # Complete Wiki backup
-python download_wiki.py --space-name "KB" --output ./backup --parallel
+uv run python download_wiki.py --space-name "KB" --output ./backup --parallel
 ```
 
 ✅ **CI/CD pipelines**
 ```yaml
 # GitHub Actions, GitLab CI, Jenkins
-- run: python batch_create_docs.py --source-dir docs --parallel
+- run: uv run python batch_create_docs.py --source-dir docs --parallel
 ```
 
 ✅ **CLI automation scripts**
 ```bash
 # Easy to script
 for file in docs/*.md; do
-  python create_feishu_doc.py --file "$file" --folder-token "$TOKEN"
+  uv run python create_feishu_doc.py --file "$file" --folder-token "$TOKEN"
 done
 ```
 
@@ -144,7 +144,7 @@ await mcp.createComplexTable(docId, tableData);
 **Step 1: Bulk Upload** (feishu-doc-tools)
 ```bash
 # Fast batch upload
-python batch_create_docs.py \
+uv run python batch_create_docs.py \
   --source-dir docs \
   --parallel \
   --workers 5 \
@@ -162,7 +162,7 @@ for (const docId of uploadedDocs) {
 **Step 3: Periodic Backup** (feishu-doc-tools)
 ```bash
 # Daily backup
-python download_wiki.py \
+uv run python download_wiki.py \
   --space-name "Knowledge Base" \
   --output ./backups/$(date +%Y-%m-%d) \
   --parallel
@@ -177,11 +177,11 @@ python download_wiki.py \
 git clone https://github.com/your-org/feishu-doc-tools
 cd feishu-doc-tools
 
-# Install dependencies
-pip install -r requirements.txt
+# Install dependencies with uv lockfile workflow
+uv sync
 
 # Setup authentication
-python scripts/setup_user_auth.py
+uv run python scripts/setup_user_auth.py
 
 # Configure .env
 cat <<EOF > .env
@@ -232,7 +232,7 @@ If you need AI editing capabilities:
 
 ```bash
 # 1. Upload with feishu-doc-tools (keep this)
-python batch_create_docs.py --source-dir docs --parallel
+uv run python batch_create_docs.py --source-dir docs --parallel
 
 # 2. Add Feishu-MCP for editing
 npm install feishu-mcp
@@ -250,7 +250,7 @@ If you need batch download or faster uploads:
 pip install feishu-doc-tools
 
 # 2. Use for batch operations
-python batch_create_docs.py --source-dir docs --parallel
+uv run python batch_create_docs.py --source-dir docs --parallel
 
 # 3. Keep Feishu-MCP for AI editing
 # Use both tools for their strengths
@@ -282,13 +282,13 @@ python batch_create_docs.py --source-dir docs --parallel
 **Slow uploads**:
 ```bash
 # Increase workers
-python batch_create_docs.py --parallel --workers 8
+uv run python batch_create_docs.py --parallel --workers 8
 ```
 
 **Authentication errors**:
 ```bash
 # Re-run setup
-python scripts/setup_user_auth.py
+uv run python scripts/setup_user_auth.py
 ```
 
 ### Feishu-MCP Issues

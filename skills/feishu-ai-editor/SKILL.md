@@ -694,7 +694,7 @@ await mcp.batch_create_feishu_blocks({
 
 // Run user auth setup
 # In feishu-doc-tools
-python scripts/setup_user_auth.py
+uv run python scripts/setup_user_auth.py
 ```
 
 ### Issue 6: Large Document Edit Fails

@@ -13,14 +13,14 @@ I'll help you backup the entire Wiki space using feishu-doc-tools v0.2.1's batch
 **Step 1: Preview Wiki structure first (recommended)**
 ```bash
 # See what you're backing up
-python /path/to/feishu-doc-tools/scripts/list_wiki_tree.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/list_wiki_tree.py \
   --space-name "Knowledge Base" \
   --parallel
 ```
 
 **Step 2: Batch download entire Wiki**
 ```bash
-python /path/to/feishu-doc-tools/scripts/download_wiki.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/download_wiki.py \
   --space-name "Knowledge Base" \
   --output /backups/knowledge-base-2026-01-19 \
   --parallel \
@@ -31,13 +31,13 @@ python /path/to/feishu-doc-tools/scripts/download_wiki.py \
 
 ```bash
 # Step 1: Preview structure
-python /home/user/feishu-doc-tools/scripts/list_wiki_tree.py \
+cd $(dirname /home/user/feishu-doc-tools/scripts/list_wiki_tree.py) && uv run python /home/user/feishu-doc-tools/scripts/list_wiki_tree.py \
   --space-name "Knowledge Base" \
   --parallel \
   --output wiki-structure.json
 
 # Step 2: Download everything
-python /home/user/feishu-doc-tools/scripts/download_wiki.py \
+cd $(dirname /home/user/feishu-doc-tools/scripts/download_wiki.py) && uv run python /home/user/feishu-doc-tools/scripts/download_wiki.py \
   --space-name "Knowledge Base" \
   --output /home/user/backups/kb-backup-2026-01-19 \
   --parallel \
@@ -145,7 +145,7 @@ kb-backup-2026-01-19/
 
 ```bash
 # Verify backup completeness
-python /path/to/feishu-doc-tools/scripts/verify_backup.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/verify_backup.py \
   --backup-dir /home/user/backups/kb-backup-2026-01-19 \
   --space-name "Knowledge Base"
 
@@ -160,7 +160,7 @@ python /path/to/feishu-doc-tools/scripts/verify_backup.py \
 ### Option 1: Selective restore
 ```bash
 # Restore specific section only
-python /path/to/feishu-doc-tools/scripts/batch_create_wiki_docs.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/batch_create_wiki_docs.py \
   --source-dir /backups/kb-backup-2026-01-19/Engineering \
   --space-name "Knowledge Base" \
   --parent-node-path "/Engineering" \
@@ -170,7 +170,7 @@ python /path/to/feishu-doc-tools/scripts/batch_create_wiki_docs.py \
 ### Option 2: Full restore to new space
 ```bash
 # Create new Wiki space and restore everything
-python /path/to/feishu-doc-tools/scripts/restore_wiki_backup.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/restore_wiki_backup.py \
   --backup-dir /backups/kb-backup-2026-01-19 \
   --new-space-name "Knowledge Base (Restored)" \
   --parallel
@@ -187,7 +187,7 @@ DATE=$(date +%Y-%m-%d)
 BACKUP_DIR="/backups/wiki/daily/$DATE"
 
 # Backup Wiki
-python /path/to/feishu-doc-tools/scripts/download_wiki.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/download_wiki.py \
   --space-name "Knowledge Base" \
   --output "$BACKUP_DIR" \
   --parallel \
@@ -196,7 +196,7 @@ python /path/to/feishu-doc-tools/scripts/download_wiki.py \
   --download-images
 
 # Verify backup
-python /path/to/feishu-doc-tools/scripts/verify_backup.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/verify_backup.py \
   --backup-dir "$BACKUP_DIR" \
   --space-name "Knowledge Base"
 
@@ -221,7 +221,7 @@ echo "Backup completed: $BACKUP_DIR.tar.gz"
 ### Incremental backup
 ```bash
 # Only backup changed nodes since last backup
-python download_wiki.py \
+uv run python download_wiki.py \
   --space-name "Knowledge Base" \
   --output /backups/kb-incremental \
   --incremental \
@@ -232,7 +232,7 @@ python download_wiki.py \
 ### Backup with metadata
 ```bash
 # Include full metadata (authors, timestamps, comments)
-python download_wiki.py \
+uv run python download_wiki.py \
   --space-name "Knowledge Base" \
   --output /backups/kb-full \
   --include-metadata \
@@ -244,7 +244,7 @@ python download_wiki.py \
 ```bash
 # Backup multiple Wiki spaces
 for space in "Knowledge Base" "Product Docs" "Engineering Wiki"; do
-  python download_wiki.py \
+  uv run python download_wiki.py \
     --space-name "$space" \
     --output "/backups/$space-$(date +%Y-%m-%d)" \
     --parallel
@@ -256,7 +256,7 @@ done
 **If backup is slow**:
 ```bash
 # Increase worker count
-python download_wiki.py \
+uv run python download_wiki.py \
   --space-name "Knowledge Base" \
   --output /backups/kb \
   --parallel \
@@ -269,7 +269,7 @@ python download_wiki.py \
 cat /backups/kb-backup/download-errors.log
 
 # Retry failed nodes only
-python download_wiki.py \
+uv run python download_wiki.py \
   --space-name "Knowledge Base" \
   --output /backups/kb \
   --retry-failed download-errors.log \
@@ -279,7 +279,7 @@ python download_wiki.py \
 **If images are missing**:
 ```bash
 # Download images separately
-python download_wiki_images.py \
+uv run python download_wiki_images.py \
   --wiki-backup /backups/kb-backup \
   --images-dir /backups/kb-backup/images \
   --parallel

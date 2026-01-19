@@ -55,7 +55,7 @@ The **feishu-wiki-manager** skill provides comprehensive Wiki knowledge base man
 
 ```bash
 # Visualize Wiki space as tree structure
-python /path/to/feishu-doc-tools/scripts/list_wiki_tree.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/list_wiki_tree.py \
   --space-name "Knowledge Base" \
   --parallel
 ```
@@ -64,7 +64,7 @@ python /path/to/feishu-doc-tools/scripts/list_wiki_tree.py \
 
 ```bash
 # Create single Wiki node using name-based parameters
-python /path/to/feishu-doc-tools/scripts/create_wiki_doc.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/create_wiki_doc.py \
   --title "My Wiki Page" \
   --file /path/to/content.md \
   --space-name "Knowledge Base" \
@@ -75,7 +75,7 @@ python /path/to/feishu-doc-tools/scripts/create_wiki_doc.py \
 
 ```bash
 # Download entire Wiki space for backup
-python /path/to/feishu-doc-tools/scripts/download_wiki.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/download_wiki.py \
   --space-name "Knowledge Base" \
   --output /path/to/backup \
   --parallel
@@ -85,7 +85,7 @@ python /path/to/feishu-doc-tools/scripts/download_wiki.py \
 
 ```bash
 # Create multiple Wiki nodes from folder
-python /path/to/feishu-doc-tools/scripts/batch_create_wiki_docs.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/batch_create_wiki_docs.py \
   --source-dir /path/to/wiki/content \
   --space-name "Knowledge Base" \
   --recursive \
@@ -101,7 +101,7 @@ python /path/to/feishu-doc-tools/scripts/batch_create_wiki_docs.py \
 **AI Response**:
 ```bash
 # Use list_wiki_tree.py to visualize Wiki structure (NEW in v0.2.1)
-python /path/to/feishu-doc-tools/scripts/list_wiki_tree.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/list_wiki_tree.py \
   --space-name "Knowledge Base" \
   --parallel \
   --workers 5
@@ -124,7 +124,7 @@ python /path/to/feishu-doc-tools/scripts/list_wiki_tree.py \
 **AI Response**:
 ```bash
 # Use download_wiki.py for complete Wiki backup (NEW in v0.2.1)
-python /path/to/feishu-doc-tools/scripts/download_wiki.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/download_wiki.py \
   --space-name "Knowledge Base" \
   --output /path/to/backup \
   --parallel \
@@ -141,14 +141,14 @@ python /path/to/feishu-doc-tools/scripts/download_wiki.py \
 **AI Response**:
 ```bash
 # Create Wiki node with parent path
-python /path/to/feishu-doc-tools/scripts/create_wiki_doc.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/create_wiki_doc.py \
   --title "API Design Guidelines" \
   --file /path/to/api-guidelines.md \
   --space-name "Knowledge Base" \
   --parent-node-path "/Engineering/Backend"
 
 # Alternative: Use parent-token if known
-python /path/to/feishu-doc-tools/scripts/create_wiki_doc.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/create_wiki_doc.py \
   --title "API Design Guidelines" \
   --file /path/to/api-guidelines.md \
   --space-id "your_space_id" \
@@ -162,7 +162,7 @@ python /path/to/feishu-doc-tools/scripts/create_wiki_doc.py \
 **AI Response**:
 ```bash
 # Use batch_create_wiki_docs.py with structure preservation
-python /path/to/feishu-doc-tools/scripts/batch_create_wiki_docs.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/batch_create_wiki_docs.py \
   --source-dir /path/to/wiki/content \
   --space-name "Knowledge Base" \
   --recursive \
@@ -184,12 +184,12 @@ python /path/to/feishu-doc-tools/scripts/batch_create_wiki_docs.py \
 **AI Response**:
 ```bash
 # First, find the node token for Engineering
-python /path/to/feishu-doc-tools/scripts/list_wiki_tree.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/list_wiki_tree.py \
   --space-name "Knowledge Base" \
   --filter "Engineering"
 
 # Then download from that node
-python /path/to/feishu-doc-tools/scripts/download_wiki.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/download_wiki.py \
   --space-name "Knowledge Base" \
   --root-node-token "engineering_node_token" \
   --output /path/to/backup/engineering \
@@ -203,7 +203,7 @@ python /path/to/feishu-doc-tools/scripts/download_wiki.py \
 **AI Response**:
 ```bash
 # Step 1: Get current Wiki content
-python /path/to/feishu-doc-tools/scripts/download_doc.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/download_doc.py \
   --doc-name "My Wiki Page" \
   --space-name "Knowledge Base" \
   --output /tmp/current.md
@@ -213,7 +213,7 @@ python /path/to/feishu-doc-tools/scripts/download_doc.py \
 # Use batch_create_feishu_blocks for 90% efficiency improvement
 
 # Step 3: Upload optimized content
-python /path/to/feishu-doc-tools/scripts/create_wiki_doc.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/create_wiki_doc.py \
   --title "My Wiki Page" \
   --file /tmp/optimized.md \
   --space-name "Knowledge Base" \
@@ -227,7 +227,7 @@ python /path/to/feishu-doc-tools/scripts/create_wiki_doc.py \
 **AI Response**:
 ```bash
 # Step 1: Download current Wiki structure
-python /path/to/feishu-doc-tools/scripts/list_wiki_tree.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/list_wiki_tree.py \
   --space-name "Knowledge Base" \
   --output /tmp/current-structure.json
 
@@ -235,7 +235,7 @@ python /path/to/feishu-doc-tools/scripts/list_wiki_tree.py \
 # Edit /tmp/current-structure.json to design new structure
 
 # Step 3: Create new Wiki nodes with new structure
-python /path/to/feishu-doc-tools/scripts/batch_create_wiki_docs.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/batch_create_wiki_docs.py \
   --source-dir /tmp/new-structure \
   --space-name "Knowledge Base (New)" \
   --parallel
@@ -251,7 +251,7 @@ python /path/to/feishu-doc-tools/scripts/batch_create_wiki_docs.py \
 **AI Response**:
 ```bash
 # Use batch_create_wiki_docs.py for one-way sync (local → Feishu)
-python /path/to/feishu-doc-tools/scripts/batch_create_wiki_docs.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/batch_create_wiki_docs.py \
   --source-dir /path/to/local/wiki \
   --space-name "Knowledge Base" \
   --recursive \
@@ -272,7 +272,7 @@ python /path/to/feishu-doc-tools/scripts/batch_create_wiki_docs.py \
 **AI Response**:
 ```bash
 # Use list_wiki_tree.py with search filter
-python /path/to/feishu-doc-tools/scripts/list_wiki_tree.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/list_wiki_tree.py \
   --space-name "Knowledge Base" \
   --search "API Guidelines" \
   --output /tmp/search-results.json
@@ -290,7 +290,7 @@ python /path/to/feishu-doc-tools/scripts/list_wiki_tree.py \
 # Create backup script
 cat > /usr/local/bin/backup-wiki.sh << 'EOF'
 #!/bin/bash
-python /path/to/feishu-doc-tools/scripts/download_wiki.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/download_wiki.py \
   --space-name "Knowledge Base" \
   --output /backup/wiki/$(date +%Y%m%d) \
   --parallel \
@@ -342,10 +342,10 @@ python create_wiki_doc.py \
 
 ```bash
 # Good: Parallel processing (3-5x faster)
-python download_wiki.py --space-name "Wiki" --parallel --workers 5
+uv run python download_wiki.py --space-name "Wiki" --parallel --workers 5
 
 # Avoid: Sequential processing (slow)
-python download_wiki.py --space-name "Wiki"
+uv run python download_wiki.py --space-name "Wiki"
 ```
 
 ### 4. Preserve Directory Structure for Batch Uploads
@@ -387,7 +387,7 @@ python batch_create_wiki_docs.py \
 
 ```bash
 # Daily backup script
-python download_wiki.py \
+uv run python download_wiki.py \
   --space-name "Knowledge Base" \
   --output /backup/wiki/$(date +%Y%m%d) \
   --parallel
@@ -412,7 +412,7 @@ python download_wiki.py \
 python list_wiki_tree.py --space-name "Wiki"
 
 # Step 2: Download content (feishu-doc-tools)
-python download_wiki.py --space-name "Wiki" --output backup/
+uv run python download_wiki.py --space-name "Wiki" --output backup/
 
 # Step 3: Edit with AI (Feishu-MCP)
 # Use Feishu-MCP for intelligent content modification
@@ -430,7 +430,7 @@ python batch_create_wiki_docs.py --source-dir backup/ --space-name "Wiki"
 **Solution**:
 ```bash
 # List available Wiki spaces
-python /path/to/feishu-doc-tools/scripts/get_root_info.py
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/get_root_info.py
 
 # Verify space name
 python list_wiki_tree.py \
@@ -464,7 +464,7 @@ python create_wiki_doc.py \
 python list_wiki_tree.py --space-name "Wiki"
 
 # Re-run with verbose output
-python download_wiki.py \
+uv run python download_wiki.py \
   --space-name "Wiki" \
   --output backup/ \
   --verbose \
@@ -494,11 +494,11 @@ python batch_create_wiki_docs.py \
 **Solution**:
 ```bash
 # Verify user authentication (required for Wiki)
-python /path/to/feishu-doc-tools/scripts/verify_user_auth.py
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/verify_user_auth.py
 
 # Wiki operations require user authentication, not tenant authentication
 # Run setup if needed
-python /path/to/feishu-doc-tools/scripts/setup_user_auth.py
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/setup_user_auth.py
 ```
 
 ### Issue 6: Wiki Structure Tree is Too Large
@@ -526,13 +526,13 @@ python list_wiki_tree.py \
 **Solution**:
 ```bash
 # Adjust worker count
-python download_wiki.py \
+uv run python download_wiki.py \
   --space-name "Wiki" \
   --workers 10 \
   --parallel
 
 # Or decrease if network is bottleneck
-python download_wiki.py \
+uv run python download_wiki.py \
   --space-name "Wiki" \
   --workers 3 \
   --parallel
@@ -628,7 +628,7 @@ Instead of full Wiki backup, backup only changed nodes:
 LAST_BACKUP=$(date -d "7 days ago" +%Y%m%d)
 
 # Download only recent changes (if supported by API)
-python download_wiki.py \
+uv run python download_wiki.py \
   --space-name "Wiki" \
   --output backup/incremental \
   --modified-after "$LAST_BACKUP"

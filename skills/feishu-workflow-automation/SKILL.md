@@ -77,7 +77,7 @@ jobs:
           FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
           FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
         run: |
-          python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
+          cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
             --source-dir docs \
             --recursive \
             --parallel
@@ -97,7 +97,7 @@ npm run generate-docs
 
 # Upload to Feishu (if docs changed)
 if git diff --name-only HEAD~1 | grep -q "docs/"; then
-  python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
+  cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
     --source-dir docs \
     --parallel
 fi
@@ -109,7 +109,7 @@ fi
 #!/bin/bash
 # /usr/local/bin/backup-wiki.sh
 
-python /path/to/feishu-doc-tools/scripts/download_wiki.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/download_wiki.py \
   --space-name "Knowledge Base" \
   --output /backup/wiki/$(date +%Y%m%d) \
   --parallel
@@ -155,14 +155,15 @@ jobs:
       - name: Convert to Markdown
         run: |
           # Convert HTML to Markdown if needed
-          python scripts/html-to-md.py docs/api docs/md
+          uv run python scripts/html-to-md.py docs/api docs/md
 
       - name: Upload to Feishu
         env:
           FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
           FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
         run: |
-          python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
+          cd /path/to/feishu-doc-tools
+          uv run python scripts/batch_create_docs.py \
             --source-dir docs/md \
             --folder-token "${{ secrets.FEISHU_API_DOCS_FOLDER }}" \
             --parallel \
@@ -192,7 +193,7 @@ LOG_FILE="/var/log/wiki-backup.log"
 echo "[$(date)] Starting Wiki backup..." >> "$LOG_FILE"
 
 # Download entire Wiki space (NEW in v0.2.1)
-python /path/to/feishu-doc-tools/scripts/download_wiki.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/download_wiki.py \
   --space-name "$WIKI_SPACE" \
   --output "$BACKUP_DIR" \
   --parallel \
@@ -235,7 +236,7 @@ find docs -name "*.md" -exec sh -c '
 npm run generate-docs
 
 # Validate generated docs
-python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
   --source-dir docs \
   --dry-run \
   --validate-only
@@ -277,7 +278,7 @@ jobs:
           FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
           FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
         run: |
-          python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
+          cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
             --source-dir docs \
             --parallel
 
@@ -364,7 +365,7 @@ jobs:
         env:
           FEISHU_FOLDER: ${{ secrets.FEISHU_DEV_FOLDER }}
         run: |
-          python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
+          cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
             --source-dir docs \
             --folder-token "$FEISHU_FOLDER" \
             --parallel
@@ -374,7 +375,7 @@ jobs:
         env:
           FEISHU_FOLDER: ${{ secrets.FEISHU_STAGING_FOLDER }}
         run: |
-          python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
+          cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
             --source-dir docs \
             --folder-token "$FEISHU_FOLDER" \
             --parallel
@@ -384,7 +385,7 @@ jobs:
         env:
           FEISHU_FOLDER: ${{ secrets.FEISHU_PROD_FOLDER }}
         run: |
-          python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
+          cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
             --source-dir docs \
             --folder-token "$FEISHU_FOLDER" \
             --parallel
@@ -424,7 +425,7 @@ deploy:feishu:
     - build:docs
   script:
     - |
-      python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
+      cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
         --source-dir $DOCS_DIR \
         --folder-token "$FEISHU_FOLDER_TOKEN" \
         --parallel \
@@ -460,7 +461,7 @@ pipeline {
         stage('Upload to Feishu') {
             steps {
                 sh """
-                    python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
+                    cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
                         --source-dir docs \
                         --folder-token "$FEISHU_FOLDER" \
                         --parallel \
@@ -513,10 +514,11 @@ set -e
 wget -O /tmp/external-docs.md https://external.com/docs.md
 
 # Convert to our format
-python scripts/convert-docs.py /tmp/external-docs.md docs/external.md
+uv run python scripts/convert-docs.py /tmp/external-docs.md docs/external.md
 
 # Upload to Feishu
-python /path/to/feishu-doc-tools/scripts/create_feishu_doc.py \
+cd /path/to/feishu-doc-tools
+uv run python scripts/create_feishu_doc.py \
   --title "External Documentation" \
   --file docs/external.md \
   --folder-token "$FEISHU_FOLDER"
@@ -578,7 +580,7 @@ jobs:
           FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
           FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
         run: |
-          python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
+          cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
             --source-dir docs \
             --parallel
 ```
@@ -605,10 +607,10 @@ FEISHU_APP_ID="123456"  # Never commit this!
 
 ```bash
 # Test run
-python batch_create_docs.py --dry-run --validate-only
+uv run python batch_create_docs.py --dry-run --validate-only
 
 # Production run
-python batch_create_docs.py --parallel
+uv run python batch_create_docs.py --parallel
 ```
 
 ### 3. Use Parallel Processing in CI
@@ -616,7 +618,7 @@ python batch_create_docs.py --parallel
 **Recommendation**: Always enable `--parallel` in CI/CD
 
 ```bash
-python batch_create_docs.py \
+uv run python batch_create_docs.py \
   --source-dir docs \
   --parallel \
   --workers 5
@@ -642,7 +644,7 @@ LOG_FILE="/var/log/doc-upload.log"
 
 echo "[$(date)] Starting documentation upload" >> "$LOG_FILE"
 
-python batch_create_docs.py --parallel >> "$LOG_FILE" 2>&1
+uv run python batch_create_docs.py --parallel >> "$LOG_FILE" 2>&1
 
 if [ $? -eq 0 ]; then
   echo "[$(date)] Upload successful" >> "$LOG_FILE"
@@ -744,7 +746,7 @@ set -u  # Exit on undefined variable
 set -o pipefail  # Exit on pipe failure
 
 # Or use explicit error checking
-if ! python download_wiki.py ...; then
+if ! uv run python download_wiki.py ...; then
   echo "Backup failed!" >&2
   exit 1
 fi

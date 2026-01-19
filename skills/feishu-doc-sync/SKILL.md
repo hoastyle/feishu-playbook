@@ -45,7 +45,7 @@ The **feishu-doc-sync** skill provides bidirectional document operations between
 
 ```bash
 # Using feishu-doc-tools (recommended for performance)
-python /path/to/feishu-doc-tools/scripts/create_feishu_doc.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/create_feishu_doc.py \
   --title "My Document" \
   --file /path/to/document.md \
   --folder-token "your_folder_token"
@@ -55,7 +55,7 @@ python /path/to/feishu-doc-tools/scripts/create_feishu_doc.py \
 
 ```bash
 # Using feishu-doc-tools with parallel processing
-python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
   --source-dir /path/to/docs \
   --recursive \
   --parallel \
@@ -66,12 +66,12 @@ python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
 
 ```bash
 # Download by document ID
-python /path/to/feishu-doc-tools/scripts/download_doc.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/download_doc.py \
   --doc-id "your_document_id" \
   --output /path/to/output.md
 
 # Download by document name
-python /path/to/feishu-doc-tools/scripts/download_doc.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/download_doc.py \
   --doc-name "My Document" \
   --output /path/to/output.md
 ```
@@ -80,7 +80,7 @@ python /path/to/feishu-doc-tools/scripts/download_doc.py \
 
 ```bash
 # Download entire Wiki space for backup
-python /path/to/feishu-doc-tools/scripts/download_wiki.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/download_wiki.py \
   --space-name "My Wiki Space" \
   --output /path/to/backup \
   --parallel
@@ -95,7 +95,7 @@ python /path/to/feishu-doc-tools/scripts/download_wiki.py \
 **AI Response**:
 ```bash
 # Use batch_create_docs.py for high-performance upload
-python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
   --source-dir /path/to/docs \
   --recursive \
   --parallel \
@@ -112,12 +112,12 @@ python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
 **AI Response**:
 ```bash
 # Use download_doc.py (NEW in v0.2.1)
-python /path/to/feishu-doc-tools/scripts/download_doc.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/download_doc.py \
   --doc-id "document_id" \
   --output /path/to/document.md
 
 # Alternative: download by document name
-python /path/to/feishu-doc-tools/scripts/download_doc.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/download_doc.py \
   --doc-name "Document Title" \
   --space-name "My Space" \
   --output /path/to/document.md
@@ -130,7 +130,7 @@ python /path/to/feishu-doc-tools/scripts/download_doc.py \
 **AI Response**:
 ```bash
 # Use download_wiki.py for batch Wiki backup (NEW in v0.2.1)
-python /path/to/feishu-doc-tools/scripts/download_wiki.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/download_wiki.py \
   --space-name "Knowledge Base" \
   --output /path/to/backup \
   --parallel \
@@ -147,7 +147,7 @@ python /path/to/feishu-doc-tools/scripts/download_wiki.py \
 **AI Response**:
 ```bash
 # Step 1: Upload using feishu-doc-tools
-python /path/to/feishu-doc-tools/scripts/create_feishu_doc.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/create_feishu_doc.py \
   --title "My Document" \
   --file /path/to/document.md \
   --folder-token "your_folder_token"
@@ -170,7 +170,7 @@ git clone https://github.com/your-org/repo.git /tmp/repo
 find /tmp/repo -name "README.md" -type f
 
 # Step 3: Batch upload to Feishu
-python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
   --source-dir /tmp/repo \
   --file-pattern "README.md" \
   --recursive \
@@ -191,13 +191,13 @@ rm -rf /tmp/repo
 # Bidirectional sync is not supported due to complexity
 
 # Option 1: Upload all modified files
-python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
   --source-dir /path/to/docs \
   --recursive \
   --parallel
 
 # Option 2: Upload specific files
-python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
   --files file1.md,file2.md,file3.md \
   --folder-token "your_folder_token"
 
@@ -211,7 +211,7 @@ python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
 **AI Response**:
 ```bash
 # Use download_doc.py with path (NEW in v0.2.1)
-python /path/to/feishu-doc-tools/scripts/download_doc.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/download_doc.py \
   --doc-path "/Folder/Subfolder/Document Name" \
   --space-name "My Space" \
   --output /path/to/document.md
@@ -224,7 +224,7 @@ python /path/to/feishu-doc-tools/scripts/download_doc.py \
 **AI Response**:
 ```bash
 # Use batch_create_docs.py with --preserve-structure
-python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
   --source-dir /path/to/docs \
   --recursive \
   --parallel \
@@ -241,7 +241,7 @@ python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
 **AI Response**:
 ```bash
 # Step 1: Download document
-python /path/to/feishu-doc-tools/scripts/download_doc.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/download_doc.py \
   --doc-id "document_id" \
   --output /path/to/document.md
 
@@ -259,7 +259,7 @@ python /path/to/feishu-doc-tools/scripts/download_doc.py \
 **AI Response**:
 ```bash
 # Use batch_create_docs.py with error handling
-python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
   --source-dir /path/to/docs \
   --recursive \
   --parallel \
@@ -280,10 +280,10 @@ python /path/to/feishu-doc-tools/scripts/batch_create_docs.py \
 
 ```bash
 # Good: Parallel processing (5-10x faster)
-python batch_create_docs.py --source-dir docs --parallel --workers 5
+uv run python batch_create_docs.py --source-dir docs --parallel --workers 5
 
 # Avoid: Serial processing (slow)
-python batch_create_docs.py --source-dir docs
+uv run python batch_create_docs.py --source-dir docs
 ```
 
 ### 2. Choose the Right Tool for the Job
@@ -306,10 +306,10 @@ python batch_create_docs.py --source-dir docs
 
 ```bash
 # Good: Name-based (easier to read)
-python download_doc.py --doc-name "My Document" --space-name "My Space"
+uv run python download_doc.py --doc-name "My Document" --space-name "My Space"
 
 # Acceptable: ID-based (faster for scripts)
-python download_doc.py --doc-id "abc123"
+uv run python download_doc.py --doc-id "abc123"
 ```
 
 ### 4. Preserve Folder Structure for Large Projects
@@ -317,7 +317,7 @@ python download_doc.py --doc-id "abc123"
 **Recommendation**: Use `--preserve-structure` for complex documentation
 
 ```bash
-python batch_create_docs.py \
+uv run python batch_create_docs.py \
   --source-dir docs \
   --recursive \
   --preserve-structure \
@@ -329,7 +329,7 @@ python batch_create_docs.py \
 **Recommendation**: Always use error logging for critical workflows
 
 ```bash
-python batch_create_docs.py \
+uv run python batch_create_docs.py \
   --source-dir docs \
   --parallel \
   --continue-on-error \
@@ -343,13 +343,13 @@ python batch_create_docs.py \
 
 ```bash
 # Small documents: More workers
-python batch_create_docs.py --workers 10 --source-dir small-docs
+uv run python batch_create_docs.py --workers 10 --source-dir small-docs
 
 # Large documents: Fewer workers
-python batch_create_docs.py --workers 3 --source-dir large-docs
+uv run python batch_create_docs.py --workers 3 --source-dir large-docs
 
 # Default: 5 workers (balanced)
-python batch_create_docs.py --workers 5 --source-dir docs
+uv run python batch_create_docs.py --workers 5 --source-dir docs
 ```
 
 ### 7. Plan for One-Way Sync Workflows
@@ -359,12 +359,12 @@ python batch_create_docs.py --workers 5 --source-dir docs
 **Recommended Pattern**: Manual upload/download cycles
 ```bash
 # Upload cycle
-python batch_create_docs.py --source-dir docs --parallel
+uv run python batch_create_docs.py --source-dir docs --parallel
 
 # Make changes locally or in Feishu
 
 # Download cycle (if needed)
-python download_wiki.py --space-name "Wiki" --output backup/
+uv run python download_wiki.py --space-name "Wiki" --output backup/
 ```
 
 ### 8. Test with Small Batches First
@@ -373,14 +373,14 @@ python download_wiki.py --space-name "Wiki" --output backup/
 
 ```bash
 # Test: Upload 2-3 documents first
-python batch_create_docs.py \
+uv run python batch_create_docs.py \
   --source-dir docs/test \
   --parallel
 
 # Verify: Check uploaded documents
 
 # Proceed: Upload full folder
-python batch_create_docs.py \
+uv run python batch_create_docs.py \
   --source-dir docs \
   --parallel
 ```
@@ -401,7 +401,7 @@ echo $FEISHU_APP_SECRET
 cat /path/to/feishu-doc-tools/.env
 
 # Re-run setup if needed
-python /path/to/feishu-doc-tools/scripts/setup_user_auth.py
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/setup_user_auth.py
 ```
 
 ### Issue 2: Download Fails - Document Not Found
@@ -411,10 +411,10 @@ python /path/to/feishu-doc-tools/scripts/setup_user_auth.py
 **Solution**:
 ```bash
 # Verify document exists
-python /path/to/feishu-doc-tools/scripts/get_root_info.py
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/get_root_info.py
 
 # Use name-based search instead
-python download_doc.py \
+uv run python download_doc.py \
   --doc-name "Document Title" \
   --space-name "My Space" \
   --output output.md
@@ -427,13 +427,13 @@ python download_doc.py \
 **Solution**:
 ```bash
 # Adjust worker count
-python batch_create_docs.py \
+uv run python batch_create_docs.py \
   --source-dir docs \
   --parallel \
   --workers 10  # Increase workers
 
 # Or decrease if network is bottleneck
-python batch_create_docs.py \
+uv run python batch_create_docs.py \
   --source-dir docs \
   --parallel \
   --workers 3  # Decrease workers
@@ -446,7 +446,7 @@ python batch_create_docs.py \
 **Solution**:
 ```bash
 # Use --preserve-structure flag
-python batch_create_docs.py \
+uv run python batch_create_docs.py \
   --source-dir docs \
   --recursive \
   --preserve-structure \
@@ -463,7 +463,7 @@ python batch_create_docs.py \
 # Feishu documents are block-based, not line-based
 
 # Use feishu_to_md.py for better conversion
-python /path/to/feishu-doc-tools/scripts/feishu_to_md.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/feishu_to_md.py \
   --input /path/to/raw.json \
   --output /path/to/document.md
 ```
@@ -478,7 +478,7 @@ python /path/to/feishu-doc-tools/scripts/feishu_to_md.py \
 cat /path/to/errors.log
 
 # Re-upload failed documents only
-python batch_create_docs.py \
+uv run python batch_create_docs.py \
   --files failed1.md,failed2.md \
   --folder-token "your_token"
 ```
@@ -490,11 +490,11 @@ python batch_create_docs.py \
 **Solution**:
 ```bash
 # Check Wiki structure first
-python /path/to/feishu-doc-tools/scripts/list_wiki_tree.py \
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/list_wiki_tree.py \
   --space-name "My Wiki"
 
 # Re-run download with verbose output
-python download_wiki.py \
+uv run python download_wiki.py \
   --space-name "My Wiki" \
   --output backup/ \
   --verbose
@@ -507,10 +507,10 @@ python download_wiki.py \
 **Solution**:
 ```bash
 # Verify user authentication
-python /path/to/feishu-doc-tools/scripts/verify_user_auth.py
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/verify_user_auth.py
 
 # Check folder permissions
-python /path/to/feishu-doc-tools/scripts/list_folders.py
+cd /path/to/feishu-doc-tools && uv run python /path/to/feishu-doc-tools/scripts/list_folders.py
 
 # Use correct authentication mode
 # For Wiki operations, user authentication is required
@@ -546,10 +546,10 @@ No additional configuration needed.
 
 ```bash
 # Good: Specific file types
-python batch_create_docs.py --file-pattern "*.md"
+uv run python batch_create_docs.py --file-pattern "*.md"
 
 # Avoid: All files
-python batch_create_docs.py --file-pattern "*"
+uv run python batch_create_docs.py --file-pattern "*"
 ```
 
 ## Reference
