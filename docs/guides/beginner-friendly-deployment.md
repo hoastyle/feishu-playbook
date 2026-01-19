@@ -89,14 +89,6 @@ uv sync
 
 如果你有 `uv.lock` 文件，uv 会使用它来确保可重现的安装。如果没有，uv 会自动生成。
 
-**传统方式**（不推荐）:
-
-```bash
-# 如果必须使用 requirements.txt
-uv venv
-uv pip install -r requirements.txt
-```
-
 ### 步骤 4: 配置环境变量
 
 ```bash

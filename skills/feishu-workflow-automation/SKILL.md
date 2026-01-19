@@ -801,7 +801,8 @@ jobs:
           FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
           FEISHU_FOLDER: ${{ secrets.FEISHU_FOLDER }}
         run: |
-          pip install feishu-doc-tools
+          cd /path/to/feishu-doc-tools
+          uv sync
           feishu-doc-tools batch-upload \
             --source-dir docs \
             --folder-token "$FEISHU_FOLDER" \
@@ -819,7 +820,8 @@ stages:
 deploy:feishu:
   stage: deploy
   script:
-    - pip install feishu-doc-tools
+    - cd /path/to/feishu-doc-tools
+    - uv sync
     - feishu-doc-tools batch-upload
         --source-dir docs
         --folder-token "$FEISHU_FOLDER_TOKEN"
@@ -838,7 +840,8 @@ pipeline {
         stage('Upload to Feishu') {
             steps {
                 sh '''
-                    pip install feishu-doc-tools
+                    cd /path/to/feishu-doc-tools
+                    uv sync
                     feishu-doc-tools batch-upload \
                         --source-dir docs \
                         --folder-token "$FEISHU_FOLDER" \

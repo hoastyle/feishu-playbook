@@ -18,7 +18,7 @@
 - **Strengths**: High-performance batch operations
 - **Use cases**: Upload, download, migration, backup
 - **Performance**: 5-10x speedup with parallel processing
-- **Installation**: `pip install feishu-doc-tools` (or local scripts)
+- **Installation**: `uv sync` (or `uv pip install feishu-doc-tools` for standalone)
 - **GitHub**: Reference project location
 
 ### Feishu-MCP
@@ -246,8 +246,8 @@ npm install feishu-mcp
 If you need batch download or faster uploads:
 
 ```bash
-# 1. Install feishu-doc-tools
-pip install feishu-doc-tools
+# 1. Install feishu-doc-tools with uv
+uv sync
 
 # 2. Use for batch operations
 uv run python batch_create_docs.py --source-dir docs --parallel
